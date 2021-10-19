@@ -163,8 +163,11 @@ import "net/http"
 
 //go:embed static
 var content embed.FS
+
+
+
 func main() {
-	// fmt.Println("Hello, 世界")
+	fmt.Println("Hello Universe")
 	// log.Fatal(http.ListenAndServe(":8080", http.FileServer(http.FS(content))))
 	http.Handle("/static/", http.FileServer(http.FS(content)))
     // http.HandleFunc("/d5033c97b87fec3d5fab7341a3a4c88098a1989256c52e142fe2f0ad757e25978b81cd345e8ed8a3a66d1a32409cfcbb", check_dir_handler)
@@ -178,5 +181,5 @@ func main() {
     //     MaxHeaderBytes: 1 << 20,
     // }
     // log.Fatal(srv.ListenAndServe())
-    log.Fatal(http.ListenAndServe(":8080", nil))
+    log.Fatal(http.ListenAndServe(":8282", nil))
 }
