@@ -9,14 +9,24 @@
 	<div class="container-fluid">
 	  <div class="container-fluid">
 	    <div class="row">
-	      <div class="col-sm-3 col-md-6 col-lg-4 col-xl-2">
-	      	
-	        <LeftArrow/>
+	      <div class="col-sm-3 col-md-6 col-lg-4 col-xl-2 p-0">
+	      	<div class="row border border-dark">
+	        	192.168.18.9
+	      	</div>
+	      	<!-- <LeftArrow/> -->
+	      	<div class="row border border-dark p-1" style="height: 50px;">
+	        	<div class="col-2 p-0 bg-primary">
+	        		<LeftArrow/>
+	        	</div>
+
+	        	<div class="col-8 p-0">
+	        		ddddddddddddd/home
+	        	</div>
+
+	      	</div>
 	      </div>
 	      
 	      <div class="col-sm-9 col-md-6 col-lg-8 col-xl-10 bg-warning">
-	        
-
 	        菜鸟教程
 	      </div>
 	    </div>
