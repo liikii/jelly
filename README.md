@@ -17,4 +17,14 @@ npx degit sveltejs/template jelly-app
 cd jelly-app
 npm install
 npm run dev
+npm run build
+```
+
+
+
+#### svelte import css
+```html
+<style>
+	@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css");
+</style>
 ```
