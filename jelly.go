@@ -155,31 +155,103 @@ package main
 //     return hostKey
 // }
 
-import "embed"
-import "fmt"
-import "log"
-import "net/http"
+// import "embed"
+// import "fmt"
+// import "log"
+// import "net/http"
 
 
-//go:embed static
-var content embed.FS
+// //go:embed static
+// var content embed.FS
 
 
+
+// func main() {
+// 	fmt.Println("Hello Universe")
+// 	// log.Fatal(http.ListenAndServe(":8080", http.FileServer(http.FS(content))))
+// 	http.Handle("/static/", http.FileServer(http.FS(content)))
+//     // http.HandleFunc("/d5033c97b87fec3d5fab7341a3a4c88098a1989256c52e142fe2f0ad757e25978b81cd345e8ed8a3a66d1a32409cfcbb", check_dir_handler)
+//     // http.HandleFunc("/upload", upload)
+//     // log.Fatal(http.ListenAndServe(pts, http.FileServer(http.Dir(dr))))
+//     // http.Handle("/", http.FileServer(http.Dir(dr)))
+//     http.Handle("/", http.RedirectHandler("/static/", 301))
+//     // srv := &http.Server{
+//     //     Addr:           pts,
+//     //     IdleTimeout:    8 * time.Second,
+//     //     MaxHeaderBytes: 1 << 20,
+//     // }
+//     // log.Fatal(srv.ListenAndServe())
+//     log.Fatal(http.ListenAndServe(":8282", nil))
+// }
+
+
+
+import (
+    "log"
+    "fmt"
+    scp "github.com/bramvdbogaerde/go-scp"
+    // "github.com/bramvdbogaerde/go-scp/auth"
+    "golang.org/x/crypto/ssh"
+    "os"
+)
 
 func main() {
-	fmt.Println("Hello Universe")
-	// log.Fatal(http.ListenAndServe(":8080", http.FileServer(http.FS(content))))
-	http.Handle("/static/", http.FileServer(http.FS(content)))
-    // http.HandleFunc("/d5033c97b87fec3d5fab7341a3a4c88098a1989256c52e142fe2f0ad757e25978b81cd345e8ed8a3a66d1a32409cfcbb", check_dir_handler)
-    // http.HandleFunc("/upload", upload)
-    // log.Fatal(http.ListenAndServe(pts, http.FileServer(http.Dir(dr))))
-    // http.Handle("/", http.FileServer(http.Dir(dr)))
-    http.Handle("/", http.RedirectHandler("/static/", 301))
-    // srv := &http.Server{
-    //     Addr:           pts,
-    //     IdleTimeout:    8 * time.Second,
-    //     MaxHeaderBytes: 1 << 20,
+    remote := "192.168.199.128"
+    port   := "22"
+    user   := "liikii"
+    pass   := "debian"
+
+    // Use SSH key authentication from the auth package
+    // we ignore the host key in this example, please change this if you use this library
+    // clientConfig, _ := auth.PrivateKey(remote, "/path/to/rsa/key", ssh.InsecureIgnoreHostKey())
+        clientConfig := ssh.ClientConfig{
+        User: user,
+        Auth: []ssh.AuthMethod{
+            ssh.Password(pass),
+        },
+        HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+        // HostKeyCallback: ssh.FixedHostKey(hostKey),
+    }
+
+
+    // For other authentication methods see ssh.ClientConfig and ssh.AuthMethod
+    // Create a new SCP client
+    client := scp.NewClient(remote + ":" + port, &clientConfig)
+
+    // Connect to the remote server
+    err := client.Connect()
+    if err != nil {
+        fmt.Println("Couldn't establish a connection to the remote server ", err)
+        return
+    }
+
+    // Open a file
+    f, err := os.OpenFile("notes.txt", os.O_RDWR|os.O_CREATE, 0755)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    // Close client connection after the file has been copied
+    defer client.Close()
+
+    // Close the file after it has been copied
+    defer f.Close()
+
+    // Finaly, copy the file over
+    // Usage: CopyFile(fileReader, remotePath, permission)
+
+    // err = client.CopyFile(f, "/home/liikii/haha2.txt", "0755")
+
+    // if err != nil {
+    //     fmt.Println("Error while copying file ", err)
     // }
-    // log.Fatal(srv.ListenAndServe())
-    log.Fatal(http.ListenAndServe(":8282", nil))
+
+    // CopyFromRemote
+    err = client.CopyFromRemote(f, "/home/liikii/haha.txt")
+
+    if err != nil {
+        fmt.Println("Error while copying file ", err)
+    }
+
+    fmt.Println("hello")
 }
