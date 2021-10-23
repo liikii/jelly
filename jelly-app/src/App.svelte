@@ -1,6 +1,7 @@
 <script>
 	// export let name;
 	import LeftArrow from './LeftArrow.svelte';
+	import ScrollText from './ScrollText.svelte';
 </script>
 
 <main>
@@ -10,19 +11,15 @@
 	  <div class="container-fluid">
 	    <div class="row">
 	      <div class="col-sm-3 col-md-6 col-lg-4 col-xl-2 p-0">
-	      	<div class="row border border-dark">
+	      	<div class="row">
 	        	192.168.18.9
 	      	</div>
 	      	<!-- <LeftArrow/> -->
-	      	<div class="row border border-dark p-1" style="height: 50px;">
+	      	<div class="row px-1 bg-primary" style="height: 50px;">
 	        	<div class="col-2 p-0 bg-primary">
 	        		<LeftArrow/>
 	        	</div>
-
-	        	<div class="col-8 p-0">
-	        		ddddddddddddd/home
-	        	</div>
-
+	        		<ScrollText dev_css="col-8 p-0" roll_text="ddddddddddddd/home"/>
 	      	</div>
 	      </div>
 	      
