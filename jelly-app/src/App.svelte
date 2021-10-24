@@ -6,19 +6,24 @@
 	import LoginPop from './LoginPop.svelte';
 	// let login_model = "display: block;";
 	// login_model = "display: none;";
-	let login_model;
-	let modal_show = "block";
+	// let login_model;
+	// let modal_show = "block";
 
-	let loggedIn = false;
+	// let loggedIn = false;
 	// if (!loggedIn) {
 	// 	login_model.modal('show');
 	// }
-	onMount( () => {
-		console.log(login_model);
+	// onMount( () => {
+	// 	console.log(login_model);
 		// if (!loggedIn) {
 		// 	login_model.show();
 		// }
-	});
+	// });
+	let show_login_form = "block";
+	function logout() {
+		// body...
+		show_login_form = "block";
+	}
 
 </script>
 
@@ -47,7 +52,8 @@
 	    </div>
 	  </div>
 
-	  <LoginPop display_v={"block"}/>
+	  <button on:click={logout}>登出</button>
+	  <LoginPop bind:display_v={show_login_form}/>
 	  <!-- <div class="modal show" style="{login_model}" tabindex="1" role="dialog">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">

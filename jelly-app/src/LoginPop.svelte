@@ -12,7 +12,7 @@
 	  <div class="p-2">Flex item 2</div>
 	  <div class="p-2">Flex item 3</div>
 	  <button type="button" on:click={handleClick}>
-	    打开模态框
+	    登陆
 	  </button>
 	</div>
 </div>
