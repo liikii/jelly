@@ -47,7 +47,7 @@
 	    </div>
 	  </div>
 
-	  <LoginPop/>
+	  <LoginPop display_v={"block"}/>
 	  <!-- <div class="modal show" style="{login_model}" tabindex="1" role="dialog">
 		  <div class="modal-dialog" role="document">
 		    <div class="modal-content">
